@@ -3,6 +3,7 @@ const exteriorColorSection = document.querySelector("#exterior-buttons");
 const interiorColorSection = document.querySelector("#interior-buttons");
 const exteriorImage = document.querySelector("#exterior-image");
 const interiorImage = document.querySelector("#interior-image");
+const wheelButtonsSection = document.querySelector("#wheel-buttons");
 
 // Handle Top Bar On Scroll
 const handleScroll = () => {
@@ -52,6 +53,14 @@ const handleColorButtonClick = (event) => {
       const color = button.querySelector("img").alt;
       interiorImage.src = interiorImages[color];
     }
+  }
+};
+
+// Handle Wheel Selection
+const handleWheelButtonClick = (event) => {
+  if (event.target.tagName === "BUTTON") {
+    const buttons = document.querySelectorAll("#wheel-buttons button");
+    // buttons.forEach((btn) => )
   }
 };
 
