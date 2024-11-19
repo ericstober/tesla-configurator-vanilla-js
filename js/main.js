@@ -5,12 +5,46 @@ const exteriorImage = document.querySelector("#exterior-image");
 const interiorImage = document.querySelector("#interior-image");
 const wheelButtonsSection = document.querySelector("#wheel-buttons");
 const performanceButton = document.querySelector("#performance-button");
+const totalPriceElement = document.querySelector("#total-price");
+
+const basePrice = 52490;
+let currentPrice = basePrice;
 
 let selectedColor = "Stealth Grey";
 const selectedOptions = {
   "Performance Wheels": false,
   "Performance Package": false,
   "Full Self-Driving": false,
+};
+
+const pricing = {
+  "Performance Wheels": 2500,
+  "Performance Package": 5000,
+  "Full Self-Driving": 8500,
+  Accessories: {
+    "Center Console Trays": 35,
+    Sunshade: 105,
+    "All Weather Interior Liners": 225,
+  },
+};
+
+// Update total price in the UI
+const updateTotalPrice = () => {
+  // Reset the current price to the base price
+  currentPrice = basePrice;
+
+  // Check for performance wheels selection
+  if (selectedOptions["Performance Wheels"]) {
+    currentPrice += pricing["Performance Wheels"];
+  }
+
+  // Check for performance package selection
+  if (selectedOptions["Performance Package"]) {
+    currentPrice += pricing["Performance Package"];
+  }
+
+  // Update the total price in UI
+  totalPriceElement.textContent = `$${currentPrice.toLocaleString()}`;
 };
 
 // Handle Top Bar On Scroll
@@ -83,13 +117,19 @@ const handleWheelButtonClick = (event) => {
     selectedOptions["Performance Wheels"] = event.target.textContent.includes("Performance");
 
     updateExteriorImage();
+    updateTotalPrice();
   }
 };
 
 // Performance Package Selection
 const handlePerformanceButtonClick = () => {
-  performanceButton.classList.toggle("bg-gray-700");
+  const isSelected = performanceButton.classList.toggle("bg-gray-700");
   performanceButton.classList.toggle("text-white");
+
+  // Update selected options
+  selectedOptions["Performance Package"] = isSelected;
+
+  updateTotalPrice();
 };
 
 // Event Listeners
