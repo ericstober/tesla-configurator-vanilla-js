@@ -7,6 +7,7 @@ const wheelButtonsSection = document.querySelector("#wheel-buttons");
 const performanceButton = document.querySelector("#performance-button");
 const totalPriceElement = document.querySelector("#total-price");
 const fullSelfDrivingCheckbox = document.querySelector("#full-self-driving-checkbox");
+const accessoryCheckboxes = document.querySelectorAll(".accessory-form-checkbox");
 
 const basePrice = 52490;
 let currentPrice = basePrice;
@@ -25,7 +26,7 @@ const pricing = {
   Accessories: {
     "Center Console Trays": 35,
     Sunshade: 105,
-    "All Weather Interior Liners": 225,
+    "All-Weather Interior Liners": 225,
   },
 };
 
@@ -48,6 +49,19 @@ const updateTotalPrice = () => {
   if (selectedOptions["Full Self-Driving"]) {
     currentPrice += pricing["Full Self-Driving"];
   }
+
+  // Check for Accessory Checkboxes selection
+  accessoryCheckboxes.forEach((checkbox) => {
+    // Extract the accessory label
+    const accessoryLabel = checkbox.closest("label").querySelector("span").textContent.trim();
+
+    const accessoryPrice = pricing["Accessories"][accessoryLabel];
+
+    // Add to current price if accessory is selected
+    if (checkbox.checked) {
+      currentPrice += accessoryPrice;
+    }
+  });
 
   // Update the total price in UI
   totalPriceElement.textContent = `$${currentPrice.toLocaleString()}`;
@@ -144,6 +158,11 @@ const fullSelfDrivingChange = () => {
 
   updateTotalPrice();
 };
+
+// Handle Accessory Checkbox Listeners
+accessoryCheckboxes.forEach((checkbox) => {
+  checkbox.addEventListener("change", () => updateTotalPrice());
+});
 
 // Event Listeners
 window.addEventListener("scroll", () => requestAnimationFrame(handleScroll));
