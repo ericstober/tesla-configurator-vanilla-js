@@ -38,7 +38,3 @@ tesla-configurator-vanilla-js/
 ├── index.html       # Main HTML file
 └── README.md        # Project documentation
 ```
-
-## License
-
-This project is licensed under the MIT License.
